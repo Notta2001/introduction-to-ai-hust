@@ -24,7 +24,7 @@ function App() {
     let currQuestion = transcript
     resetTranscript()
     const data = await fetch(`http://127.0.0.1:8000/?question="${currQuestion}"`).then(res=>res.json())
-    setQuestion([...question, currQuestion, data['answer']])
+    setQuestion([...question, {bot: 0, content: currQuestion}, {bot: 1, content:data['answer']}])
   }
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -41,7 +41,8 @@ function App() {
       >Hold to talk</Button>
       <Typography variant="h6">{transcript}</Typography>
       {question.map((a, index) => (
-        <Typography key={index} variant="h6">{a}</Typography>
+        a.bot==0 ? <Typography sx={{ bgcolor: 'error.main' }} key={index} variant="h6">{a.content}</Typography> 
+        : <Typography sx={{ bgcolor: 'success.main' }} key={index} variant="h6">{a.content}</Typography>
       ))} 
     </Container>
   )
