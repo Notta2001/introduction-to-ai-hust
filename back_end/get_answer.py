@@ -20,11 +20,12 @@ print(ans["answer"])
 """
 def get_answer(question):
     question = question.lower()
+    keyword = question
     if "what is" in question:
         keyword = question[8:]
     elif "who is" in question:
         keyword = question[7:]
-    if "birthday" in keyword:
+    if "birthday" in question:
         keyword = keyword[:-9]
     #print(keyword)
     context = get_context(keyword)

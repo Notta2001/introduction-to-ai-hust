@@ -10,6 +10,7 @@ origins = [
     "http://localhost",
     "http://localhost:8080",
     "http://localhost:3000",
+    "https://www.youtube.com"
 ]
 
 app.add_middleware(
