@@ -27,13 +27,19 @@ class bot:
             return self.query_time()
         elif ('what day' in q):
             return self.query_day()
-        elif ('what is' in q or 'who is in q'):
+        elif ('what is' in q or 'who is' in q):
             ans = self.get_answer(q)
             return ans
         elif ('hello' in q):
             return self.whatups()
         elif ('a joke' in q):
             return self.joke()
+        elif ('hi' in q or 'hello' in q):
+            return self.whatsup()
+        elif (q == ''):
+            return ''
+        else:
+            return self.get_answer(q)
 
     def query_day(self):
         day = datetime.date.today()
@@ -59,7 +65,7 @@ class bot:
         time = datetime.datetime.now().strftime("%I:%M:%S")
         return f"{time[0:2]} o'clock and {time[3:5]} minutes"
 
-    def whatups(self):
+    def whatsup(self):
         return '''Hola, I am Hannah. I am your personal assistant.
         How may i help you?
         '''
@@ -69,6 +75,7 @@ class bot:
 
     def get_answer(self, question):
         question = question.lower()
+        keyword = question
         if "what is" in question:
             keyword = question[8:]
         elif "who is" in question:
