@@ -1,10 +1,10 @@
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { Container, Typography, Button } from '@mui/material'
 import { useState } from 'react'
-
+import BasicCard from './components/BasicCard'
 
 function App() {
-  const [question, setQuestion] = useState([])
+  const [questions, setQuestions] = useState([])
 
   const {
     transcript,
@@ -24,7 +24,7 @@ function App() {
     let currQuestion = transcript
     resetTranscript()
     const data = await fetch(`http://127.0.0.1:8000/?question="${currQuestion}"`).then(res=>res.json())
-    setQuestion([...question, {bot: 0, content: currQuestion}, {bot: 1, content:data['answer']}])
+    setQuestions([...questions, {bot: 0, content: currQuestion}, {bot: 1, content:data['answer']}])
   }
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -32,20 +32,23 @@ function App() {
 
   return (
     <Container>
-      <Typography variant="h6">Microphone: {listening ? 'on' : 'off'}</Typography>
+      <Typography variant="h6"  sx={{mb: 1}}>{listening ? 'I\'m hearing....' : 'Hi, my name is Hannah.'}</Typography>
       <Button variant="contained"
         onTouchStart={startListening}
         onMouseDown={startListening}
         onTouchEnd={stopListening}
         onMouseUp={stopListening}
+        sx={{mb: 2}}
       >Hold to talk</Button>
-      <Typography variant="h6">{transcript}</Typography>
-      {question.map((a, index) => (
-        a.bot==0 ? <Typography sx={{ bgcolor: 'error.main' }} key={index} variant="h6">{a.content}</Typography> 
-        : <Typography sx={{ bgcolor: 'success.main' }} key={index} variant="h6">{a.content}</Typography>
-      ))} 
+      <BasicCard user={`Question: ` + transcript}></BasicCard>
+      {questions.map((question) => {
+        if (question.content !== "\n\n" && question.content.length !== 0) {
+          return question.bot === 0 
+          ? <BasicCard user="User" content={question.content} color="error.main"></BasicCard>
+          : <BasicCard user="Hannad" content={question.content} color="green"></BasicCard>
+      }})} 
     </Container>
   )
 }
 
-export default App;
+export default App
