@@ -17,10 +17,10 @@ class bot:
 
     def query(self, input):
         q = input.lower()
-        if ('start youtube' in q):
+        if ('open youtube' in q):
             webbrowser.open('https://www.youtube.com')
             return f'Starting youtube'
-        elif ('start browser' in q):
+        elif ('open browser' in q):
             webbrowser.open('https://www.google.com')
             return f"starting browser"
         elif ('what time' in q):
@@ -29,7 +29,7 @@ class bot:
             return self.query_day()
         elif ('who are you' in q):
             return 'I\m Hannah, your super cute assistant'
-        elif ('i' in q):
+        elif ('i am' in q or 'am i' in q):
             return 'Interesting question, why you don\'t know who you are?'
         elif ('what is' in q or 'who is' in q):
             ans = self.get_answer(q)
@@ -86,6 +86,8 @@ class bot:
             keyword = question[8:]
         elif "who is" in question:
             keyword = question[7:]
+        elif "where is" in question:
+            keyword = question[9:]
         if "birthday" in keyword:
             keyword = keyword[:-9]
         # print(keyword)
