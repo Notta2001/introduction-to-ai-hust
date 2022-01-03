@@ -27,6 +27,10 @@ class bot:
             return self.query_time()
         elif ('what day' in q):
             return self.query_day()
+        elif ('who are you' in q):
+            return 'I\m Hannah, your super cute assistant'
+        elif ('i' in q):
+            return 'Interesting question, why you don\'t know who you are?'
         elif ('what is' in q or 'who is' in q):
             ans = self.get_answer(q)
             return ans
@@ -36,6 +40,8 @@ class bot:
             return self.joke()
         elif ('hi' in q or 'hello' in q):
             return self.whatsup()
+        elif ('bye' in q):
+            return 'Bye, see you again!'
         elif (q == ''):
             return ''
         else:
