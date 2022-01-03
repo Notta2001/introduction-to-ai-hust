@@ -26,7 +26,7 @@ function App() {
     let currQuestion = transcript
     resetTranscript()
     const data = await fetch(`http://127.0.0.1:8000/?question="${currQuestion}"`).then(res=>res.json())
-    setQuestions([...questions, {bot: 0, content: currQuestion}, {bot: 1, content:data['answer']}])
+    setQuestions([...questions, {bot: 1, content:data['answer']}, {bot: 0, content: currQuestion}])
     speak({text: data['answer']})
   }
   if (!browserSupportsSpeechRecognition) {
@@ -44,7 +44,7 @@ function App() {
         sx={{mb: 2}}
       >Hold to talk</Button>
       <BasicCard user={`Question: ` + transcript}></BasicCard>
-      {questions.map((question) => {
+      {questions.slice(0).reverse().map((question) => {
         if (question.content !== "\n\n" && question.content.length !== 0) {
           return question.bot === 0 
           ? <BasicCard user="User" content={question.content} color="error.main"></BasicCard>
