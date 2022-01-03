@@ -2,9 +2,11 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { Container, Typography, Button } from '@mui/material'
 import { useState } from 'react'
 import BasicCard from './components/BasicCard'
+import { useSpeechSynthesis } from 'react-speech-kit'
 
 function App() {
   const [questions, setQuestions] = useState([])
+  const { speak } = useSpeechSynthesis()
 
   const {
     transcript,
@@ -25,6 +27,7 @@ function App() {
     resetTranscript()
     const data = await fetch(`http://127.0.0.1:8000/?question="${currQuestion}"`).then(res=>res.json())
     setQuestions([...questions, {bot: 0, content: currQuestion}, {bot: 1, content:data['answer']}])
+    speak({text: data['answer']})
   }
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
