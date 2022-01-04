@@ -37,8 +37,16 @@ class bot:
             return ans
         elif ('a joke' in q):
             return self.joke()
+        elif ('remember' in q):
+            data = q[9:]
+            remember = open('/home/notta/Study/Coding/Projects/introduction-to-ai-hust/back_end/data.txt', 'w')
+            remember.write(data)
+            return "Okay, you said me to remember that" + data
+        elif ('do you know anything' in q):
+            data = open('/home/notta/Study/Coding/Projects/introduction-to-ai-hust/back_end/data.txt', 'r')
+            return "Okay, you said me to remember that" + data.read()
         elif ('play song' in q):
-            song = q[9:]
+            song = q[11:]
             pywhatkit.playonyt(song)
             return "Playing " + song
         elif ('hi' in q or 'hello' in q):
