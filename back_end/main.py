@@ -2,6 +2,7 @@ import webbrowser
 import datetime
 import pyjokes
 import wikipedia
+import pywhatkit
 
 from transformers import AutoTokenizer
 from transformers import pipeline
@@ -36,6 +37,10 @@ class bot:
             return ans
         elif ('a joke' in q):
             return self.joke()
+        elif ('play song' in q):
+            song = q[9:]
+            pywhatkit.playonyt(song)
+            return "Playing " + song
         elif ('hi' in q or 'hello' in q):
             return self.whatsup()
         elif ('bye' in q):
