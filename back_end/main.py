@@ -117,5 +117,8 @@ class bot:
     def get_context(self, input):
         searched = wikipedia.search(input, results=2, suggestion=False)
         # print(searched)
-        context = wikipedia.summary(searched[0], auto_suggest=False)
+        context = ""
+        for temp in searched:
+            context =context + wikipedia.summary(temp, auto_suggest=False)
+        print(context)
         return context
