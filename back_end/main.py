@@ -17,12 +17,12 @@ class bot:
 
     def query(self, input):
         q = input.lower()
-        if ('open youtube' in q):
-            webbrowser.open('https://www.youtube.com')
-            return f'Starting youtube'
-        elif ('open browser' in q):
-            webbrowser.open('https://www.google.com')
-            return f"starting browser"
+        if ('open' in q):
+            q = input.lower().replace(" ","")
+            q = q.replace("\"","")
+            web = q[4:]
+            webbrowser.open('https://www.{}.com'.format(web))
+            return 'Starting ' + web[0].upper() + web[1:]
         elif ('what time' in q):
             return self.query_time()
         elif ('what day' in q):
@@ -34,8 +34,6 @@ class bot:
         elif ('what is' in q or 'who is' in q):
             ans = self.get_answer(q)
             return ans
-        elif ('hello' in q):
-            return self.whatups()
         elif ('a joke' in q):
             return self.joke()
         elif ('hi' in q or 'hello' in q):
@@ -69,7 +67,7 @@ class bot:
 
     def query_time(self):
         time = datetime.datetime.now().strftime("%I:%M:%S")
-        return f"{time[0:2]} o'clock and {time[3:5]} minutes"
+        return f"It's {time[0:2]} o'clock and {time[3:5]} minutes"
 
     def whatsup(self):
         return '''Hola, I am Hannah. I am your personal assistant.
