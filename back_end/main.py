@@ -12,8 +12,8 @@ from transformers import AutoModelForQuestionAnswering
 
 class bot:
     def __init__(self):
-        self.model = AutoModelForQuestionAnswering.from_pretrained("./roberta_ver2/")
-        self.tokenizer = AutoTokenizer.from_pretrained("./roberta_ver2")
+        self.model = AutoModelForQuestionAnswering.from_pretrained("./roberta_ver3/")
+        self.tokenizer = AutoTokenizer.from_pretrained("./roberta_ver3")
         self.nlp = pipeline('question-answering', model=self.model, tokenizer=self.tokenizer)
 
     def query(self, input):
@@ -120,5 +120,5 @@ class bot:
         context = ""
         for temp in searched:
             context =context + wikipedia.summary(temp, auto_suggest=False)
-        print(context)
+        # print(context)
         return context
