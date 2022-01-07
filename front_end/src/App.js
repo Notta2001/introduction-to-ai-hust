@@ -25,7 +25,12 @@ function App() {
     SpeechRecognition.stopListening()
     let currQuestion = transcript
     resetTranscript()
-    const data = await fetch(`http://127.0.0.1:8000/?question="${currQuestion}"`).then(res=>res.json())
+    let data = {'answer': 'I don\'t know'}
+    try { 
+      data = await fetch(`http://127.0.0.1:8000/?question="${currQuestion}"`).then(res=>res.json())
+    } catch (err) {
+      console.log(err)
+    }
     setQuestions([...questions, {bot: 1, content:data['answer']}, {bot: 0, content: currQuestion}])
     speak({text: data['answer']})
   }
@@ -41,7 +46,7 @@ function App() {
         onMouseDown={startListening}
         onTouchEnd={stopListening}
         onMouseUp={stopListening}
-        sx={{mb: 2}}
+        sx={{mb: 2, color :"black", backgroundColor: "blanchedalmond"}}
       >Hold to talk</Button>
       <BasicCard user={`Question: ` + transcript}></BasicCard>
       {questions.slice(0).reverse().map((question) => {

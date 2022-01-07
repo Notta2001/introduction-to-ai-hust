@@ -18,7 +18,7 @@ class bot:
 
     def query(self, input):
         q = input.lower()
-        if ('open' in q):
+        if ('open' in q or 'start' in q):
             q = input.lower().replace(" ","")
             q = q.replace("\"","")
             web = q[4:]
